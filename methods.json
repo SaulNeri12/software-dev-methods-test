@@ -1,0 +1,28 @@
+[
+  {
+    "name": "SCRUM",
+    "description": "Scrum es un proceso de gestión que reduce la complejidad en el desarrollo de productos para satisfacer las necesidades de los clientes.",
+    "phases": [
+	  {
+        "name": "Inicio",
+        "description": {
+          "paragraphs": [
+            {
+              "text": "Esta etapa es donde se estudia y se analiza los requerimientos, se definen los roles que formarán el equipo Scrum y se organizará la forma de cómo ejecutar el proyecto.",
+              "questions": [
+                "¿Cuál será el resultado final del proyecto?",
+                "¿Cómo se va a realizar el proyecto?",
+                "¿Quiénes son las personas que conformarán el equipo Scrum?",
+                "¿Cuánto tiempo se tiene para lograr el proyecto?"
+               ]
+            },
+            {
+              "text": "Scrum funciona a partir de una lista de tareas que se divide entre todo el equipo desarrollador, esta lista es llamada <b>product backlog</b> y  contiende la lista de caracteristicas priorizadas y descripciones sobre todo lo que se desea para el producto a desarrollar. Esta lista tiende a cambiar dependiendo de las nuevas propuestas del cliente y nuevos problemas en el desarrollo.",
+               "questions": []
+            }
+		  ]
+        }
+      }
+	]
+  }
+]
