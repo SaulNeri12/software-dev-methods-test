@@ -10,7 +10,7 @@
 html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;;
   background-color: white;
-  font-size: 18px;
+  font-size: 20px;
   color: #444;
 }
 
@@ -19,30 +19,13 @@ body {
   padding: 0;
 }
 
-header {
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-header .navbar {
-  background-color: rgb(0, 0, 75);
-  width: 100%;
-  margin: 10px;
-  position: relative;
-  border-radius: 10rem;
-  min-height: 60px;
-  box-shadow: 2px 2px 20px 10px rgba(0, 0, 0, 0.4);
-}
-
 main {
-  margin: 7rem 10px;
+  margin: 7rem 0;
 }
 
 .soft-card {
+  box-shadow: 2px 2px 20px 10px rgba(0, 0, 0, 0.4);
+  border: 1px solid gray;
   width: 100vw;
   height: auto;
 }
@@ -106,8 +89,17 @@ main {
   margin: 12.5vh 10vw;
 }
 
-.methods-info-pane {
-  word-break: break-all;
+.method-info-pane {
+  box-shadow: 2px 2px 20px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid #cccccc;
+}
+
+.method-info-pane h1, h2, h3, h4, p, ul, li {
+  margin: 10px;
+}
+
+.method-phase {
+  margin: 14px 10px;
 }
 
 .method-main-picture img {
@@ -121,9 +113,66 @@ main {
   height: 300px;
 }
 
+.content-menu {
+  transition: opacity 0.2s;
+  background-color: rgba(0, 30, 100, 0.8);
+  transform: translateY(-150%);
+  position: fixed;
+  color: white;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 995;
+}
+
+.content-menu.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.content-menu a {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 0;
+  padding: 20px 10px;
+  transition: background-color 0.3s;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  user-select: none;
+}
+
+.content-menu a:hover {
+  background-color: rgba(0, 40, 110, 0.8);
+}
+
 .hide {
   display: none; 
 }
 
+#menu-btn {
+  font-weight: bold;
+  color: white;
+  border: none;
+  background-color: rgb(0, 90, 200);
+  padding: 32px 25px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-right: 40px;
+  margin-bottom: 50px; 
+  z-index: 990;
+  transition: background-color 0.2s;
+}
 
+#menu-btn:hover {
+  background-color: rgb(0, 30, 150);
+
+}
 

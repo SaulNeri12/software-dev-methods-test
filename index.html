@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Metodologias Agiles</title>
   <link rel="stylesheet" href="/css/index.css">
+  <!--[ css icons ]-->
+  <link href='https://css.gg/menu.css' rel='stylesheet'>
 </head>
 <body>
-
-  <header>
-	<div class="navbar">a</div>
-  </header>
 
   <div class="modal-background">
 	<div class="modal">
@@ -29,7 +27,29 @@
 
   <main></main>
 
+  <button id="menu-btn">
+	<i class="gg-menu"></i>
+  </button>
+
+  <div class="content-menu"></div>
+
+  <script>
+	  fetch("https://raw.githubusercontent.com/SaulNeri12/sadm/main/contents.json").
+		then(data => {
+		  data.json().then(results => {
+			results.forEach(content => {
+			  const $a = document.createElement("a");
+			  $a.textContent = content.title;
+			  $a.setAttribute("href", content.link);
+			  document.querySelector(".content-menu").appendChild($a);
+			});
+		  });
+		});
+	</script>
+
+
   <script src="/js/index.js" type="module"></script>
+  <script src="/js/content.loader.js"></script>
   <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 </body>
 </html>
