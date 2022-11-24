@@ -6,50 +6,21 @@
   <title>Metodologias Agiles</title>
   <link rel="stylesheet" href="/css/index.css">
   <!--[ css icons ]-->
+  <link href='https://css.gg/chevron-left.css' rel='stylesheet'>
   <link href='https://css.gg/menu.css' rel='stylesheet'>
 </head>
 <body>
 
-  <div class="modal-background">
-	<div class="modal">
-	  <div class="modal-header"></div>
-	  <div class="modal-body"></div>
-	  <div class="modal-footer"></div>
-	</div>
-  </div>
-
-  <div style="display: none;" class="soft-card">
-	<img/>
-	<div class="soft-card-cover">
-	  <p></p>
-	</div>
-  </div>
-
+  <!--
+  <header>coltech</header>
+  -->
   <main></main>
 
   <button id="menu-btn">
 	<i class="gg-menu"></i>
   </button>
 
-  <div class="content-menu"></div>
-
-  <script>
-	  fetch("https://raw.githubusercontent.com/SaulNeri12/sadm/main/contents.json").
-		then(data => {
-		  data.json().then(results => {
-			results.forEach(content => {
-			  const $a = document.createElement("a");
-			  $a.textContent = content.title;
-			  $a.setAttribute("href", content.link);
-			  document.querySelector(".content-menu").appendChild($a);
-			});
-		  });
-		});
-	</script>
-
-
   <script src="/js/index.js" type="module"></script>
-  <script src="/js/content.loader.js"></script>
-  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+  <script src="/js/content.loader.js" type="module"></script>
 </body>
 </html>

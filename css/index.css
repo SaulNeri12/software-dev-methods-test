@@ -3,15 +3,55 @@
  */
 
 :root {
-  --soft-blue: #ff0000; /* ITSON Blue color */
-  --soft-black: #333;
+  --software-blue-transparent: rgba(0, 100, 200, 0.7); /* ITSON Blue color */
+  --software-black-transparent: rgba(0, 0, 0, 0.85);
+  --software-blue: rgb(0, 100, 200);
 }
+
+@font-face {
+  font-family: "Ambisi";
+  src: url("fonts/Ambisi.ttf"), url("fonts/Ambisi.otf");
+  font-weight: bold;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--software-black-transparent);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--software-blue-transparent);
+}
+
 
 html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;;
   background-color: white;
+  scroll-behavior: smooth;
   font-size: 20px;
   color: #444;
+}
+
+header {
+  background-color: var(--software-black-transparent);
+  backdrop-filter: blur(4px);
+  font-family: "Ambisi";
+  text-align: center;
+  font-size: 40px;
+  position: fixed;
+  padding: 15px 0px;
+  color: white;
+  z-index: 995;
+  width: 100%;
+  top: 0;
 }
 
 body {
@@ -19,9 +59,63 @@ body {
   padding: 0;
 }
 
-main {
-  margin: 7rem 0;
+a {
+  color: var(--software-blue);
 }
+
+p {
+  text-align: justify;
+}
+
+main {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+/*animation*/
+.animated {
+  opacity: 0;
+  transition: opacity 0.8s;
+}
+
+.animated.is-active {
+  opacity: 1;
+}
+
+#definitions {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+#software-methods {
+  padding: 50px 0;
+}
+
+.question-title {
+  margin: 20px 10px;
+}
+
+.question {
+  margin: 100px 0;
+  scroll-margin-top: 70px;
+}
+
+.question ul li {
+  font-size: 18px;
+}
+
+.question-aux-list img {
+  height: auto;
+}
+
+.question-aux-list {
+  display: flex;
+  flex-flow: column;
+  padding: 0px 0px 0px 15px;
+  margin: 0px;
+}
+
 
 .soft-card {
   box-shadow: 2px 2px 20px 10px rgba(0, 0, 0, 0.4);
@@ -34,6 +128,7 @@ main {
   grid-column-start: 1;
   grid-row-start: 1;
   object-fit: cover;
+  user-select: none;
   width: inherit; 
   z-index: 0;
 }
@@ -41,7 +136,7 @@ main {
 .soft-card-cover {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-evenly ;
+  justify-content: space-evenly;
   opacity: 0;
   grid-column-start: 1;
   grid-row-start: 1;
@@ -61,7 +156,6 @@ main {
 .soft-card-cover:hover {
   opacity: 1;
 }
-
 
 .modal-background {
   background-color: transparent;
@@ -89,14 +183,17 @@ main {
   margin: 12.5vh 10vw;
 }
 
+
 .method-info-pane {
-  box-shadow: 2px 2px 20px 10px rgba(0, 0, 0, 0.2);
-  border: 1px solid #cccccc;
+  margin-bottom: 100px;
+  height: auto;
 }
 
-.method-info-pane h1, h2, h3, h4, p, ul, li {
+
+.method-info-pane h1, h2, h3, h4, p, li {
   margin: 10px;
 }
+
 
 .method-phase {
   margin: 14px 10px;
@@ -113,9 +210,15 @@ main {
   height: 300px;
 }
 
+.image-resource img {
+  width: 100%;
+  height: 300px;
+}
+
 .content-menu {
   transition: opacity 0.2s;
-  background-color: rgba(0, 30, 100, 0.8);
+  background-color: rgb(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
   transform: translateY(-150%);
   position: fixed;
   color: white;
@@ -126,7 +229,7 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 995;
+  z-index: 996;
 }
 
 .content-menu.is-active {
@@ -139,16 +242,17 @@ main {
   flex-flow: column nowrap;
   margin: 0;
   padding: 20px 10px;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s;
   text-align: center;
   color: white;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: bolder;
   text-decoration: none;
   user-select: none;
 }
 
 .content-menu a:hover {
-  background-color: rgba(0, 40, 110, 0.8);
+  background-color: var(--software-blue);
 }
 
 .hide {
@@ -159,7 +263,8 @@ main {
   font-weight: bold;
   color: white;
   border: none;
-  background-color: rgb(0, 90, 200);
+  background-color: rgb(0, 0, 0, 0.85);
+  backdrop-filter: blur(2px);
   padding: 32px 25px;
   border-radius: 50%;
   position: fixed;
@@ -172,7 +277,39 @@ main {
 }
 
 #menu-btn:hover {
-  background-color: rgb(0, 30, 150);
-
+  background-color: var(--software-blue);
 }
 
+@media only screen and (min-device-width: 768px) {
+  main {
+	margin: 0 auto;
+	width: 50vw;
+  }
+
+  .method-main-picture img {
+	margin: 10px;
+	width: 100%;
+  }
+
+  .image-resource {
+	margin: 10px;
+	height: 420px;
+  }
+
+  .image-resource img {
+	object-fit: cover;
+	width: 100%;
+	height: auto;
+  }
+
+  .question-aux-list .image-resource img {
+	object-fit: cover;
+	width: 100%;
+	height: auto;
+  }
+
+  #menu-btn {
+	margin-right: 60px;
+	margin-bottom: 75px; 
+  }
+}

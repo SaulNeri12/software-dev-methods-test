@@ -1,14 +1,17 @@
-import { loadMethodsInfo } from "./content.loader.js";
+import { loadMethodsInfo, loadMajorInfo, loadMenuContent } from "./content.loader.js";
 
 const $ = id => document.querySelector(id);
 
-loadMethodsInfo();
+document.addEventListener("DOMContentLoaded", () => {
+  loadMajorInfo(() => {
+	loadMethodsInfo(() => {
+	  loadMenuContent();
+	});
+  })
+});
+
 
 $("#menu-btn").onclick = function() {
   $(".content-menu").classList.toggle("is-active");
 };
-
-$(".content-menu").onclick = function(e) {
-  this.classList.toggle("is-active");
-}
 
