@@ -2,6 +2,20 @@
  * @author: Saul Neri
  */
 
+/**
+ * NOTE: RECOMENTACIONES DEL TEXTO
+ * 
+ * [x] Explica mejor que es SCRUM ya que la definicion es muy breve y nada concisa
+ */
+
+/**
+ * NOTE: CORRECCIONES DE TEXTO
+ *
+ * [x] Planning Sprint (Planeacion) -> lleva acento
+ * [x] Sprint (Ejecucion) -> lleva acento
+ * [x] Daily Meeting (Reunion Diaria) -> lleva acento
+ */
+
 const $ = id => document.querySelector(id);
 
 /** @description: Este observador carga el texto una vez y esta haya ocupado al menos un 25% de la pantalla */
@@ -43,7 +57,7 @@ export const loadMethodsInfo = async callback => {
 	const $softwareMethods = document.createElement("div");
 	$softwareMethods.setAttribute("id", "software-methods");
 	
-	$softwareMethods.innerHTML = `<h1 style="margin: 50vh 0;text-align: center;">Metodologías del desarrollo de Software</h1>`;
+	$softwareMethods.innerHTML = `<h1 class="pane-title" style="margin: 50vh 0;text-align: center;">Metodologías del desarrollo de Software</h1>`;
 
 	methods.forEach(m => {
 	  const $method = document.createElement("div");
@@ -70,8 +84,7 @@ export const loadMethodsInfo = async callback => {
 
 		$phaseContainer.classList.add("method-phase");
 		$phaseInfo.classList.add("method-phase-info");
-
-		$phaseContainer.innerHTML += `<h4 class="phase-method-name">+ ${phase.name}</h4>`;
+		$phaseContainer.innerHTML += `<h4 class="phase-method-name hover-animation">+ ${phase.name}</h4>`;
 		
 		$phaseContainer.querySelector(".phase-method-name").onclick = function (e) {
 		  const state = this.textContent[0];
@@ -84,32 +97,29 @@ export const loadMethodsInfo = async callback => {
 		// escribe la descripcion de cada fase de la metodologia
 		phase.description.paragraphs.forEach(paragraph => {
 		  $phaseInfo.innerHTML += `<p>${paragraph.text}</p>`;
-
 		  $phaseInfo.classList.add("hide"); // el texto de la fase esta oculta por defecto
 
-		  // si la fase tiene una imagen adjunta...
-		  if (paragraph.picture) {
-			const $imgContainer = document.createElement("div");
-			$imgContainer.classList.add("image-resource");
-			$imgContainer.classList.add("animated");
-			$imgContainer.innerHTML = `<img data-src="${paragraph.picture}"/>`;
-			// le anadimos el observador al recurso
-			imgObserver.observe($imgContainer);
-			$phaseInfo.appendChild($imgContainer);
-		  }
-
-		  // si la fase tiene un video adjunto...
 		  if (paragraph.resource) {
-			const $videoContainer = document.createElement("div");
-			const $iframe = document.createElement("iframe");
-			// preparamos el video
-			$iframe.classList.add("video-resource");
-			$iframe.setAttribute("data-src", paragraph.resource.link);
-			videoObserver.observe($iframe);
-			// preparamos el contenedor del video
-			$videoContainer.innerHTML += `<h4>${paragraph.resource.title}</h4>`;
-			$videoContainer.appendChild($iframe);
-			$phaseInfo.appendChild($videoContainer);
+			if (paragraph.resource.type == "video") {
+			  const $videoContainer = document.createElement("div");
+			  const $iframe = document.createElement("iframe");
+			  // preparamos el video
+			  $iframe.classList.add("video-resource");
+			  $iframe.setAttribute("data-src", paragraph.resource.link);
+			  videoObserver.observe($iframe);
+			  // agregamos el video al contenedor de este...
+			  $videoContainer.appendChild($iframe);
+			  $phaseInfo.appendChild($videoContainer);
+			} 
+			else if (paragraph.resource.type == "picture") {
+			  const $imgContainer = document.createElement("div");
+			  $imgContainer.classList.add("image-resource");
+			  $imgContainer.classList.add("animated");
+			  $imgContainer.innerHTML = `<img data-src="${paragraph.resource.link}"/>`;
+			  // le anadimos el observador al recurso
+			  imgObserver.observe($imgContainer);
+			  $phaseInfo.appendChild($imgContainer);
+			}
 		  }
 
 		  // escribe las preguntas de cada parrafo, si es que las tiene...
@@ -126,24 +136,17 @@ export const loadMethodsInfo = async callback => {
 		  $phaseContainer.appendChild($phaseInfo);
 		  $phasesSection.appendChild($phaseContainer);
 		});
-
 		$method.appendChild($phasesSection);
-	  })
+	  });
 
-	  // le anadimos el observador
 	  textObserver.observe($method);
-	  // agrega la carta con la informacion de los metodos a la etiqueta <main>
 	  $softwareMethods.appendChild($method);
-	  })
+	  });
 	  $("main").appendChild($softwareMethods);
-	  callback(); // salta al siguiente metodo...
+	  callback();
 	})
   }).catch(err => console.error(err));
 };
-
-
-
-
 
 
 export const loadMajorInfo = async callback => {
@@ -154,10 +157,8 @@ export const loadMajorInfo = async callback => {
 
 	  major.description.paragraphs.forEach(paragraph => {
 		const $question = document.createElement("div");
-
 		$question.classList.add("question");
 		$question.classList.add("animated");
-
 		$question.setAttribute("id", `${paragraph.title.link}`);
 
 		if (paragraph.title.text) $question.innerHTML += `<h2 class="question-title">${paragraph.title.text}</h2>`;
@@ -169,7 +170,6 @@ export const loadMajorInfo = async callback => {
 		  $imgContainer.classList.add("image-resource");
 		  $imgContainer.classList.add("animated");
 		  $imgContainer.innerHTML = `<img data-src="${paragraph.picture}"/>`;
-		  // le anadimos el observador al recurso
 		  imgObserver.observe($imgContainer);
 		  $question.appendChild($imgContainer);
 		}
@@ -180,9 +180,7 @@ export const loadMajorInfo = async callback => {
 		  
 		  paragraph.list.forEach(lang => {
 			const $langInfo = document.createElement("div");
-			$langInfo.classList.add("lang-info");
-
-			// preparamos el elemento
+			$langInfo.classList.add("hover-animation");
 			$langInfo.innerHTML = `<h4 class="lang-name">+ ${lang.name}</h4>`;
 			$langInfo.innerHTML += `<p class="lang-desc hide">${lang.description}</p>`;
 			
@@ -196,34 +194,72 @@ export const loadMajorInfo = async callback => {
 			  $langInfo.querySelector(".image-resource").classList.toggle("hide");
 			};
 
+			/**
+			 * NOTE: HACER LO MISMO QUE EN EL METODO "loadMethodsInfo" PARA 
+			 * DETECTAR EL RECURSO Y PLANTARLO EN EL ELEMENTO $question
+			 */
+
 			// si el lenguaje tiene una imagen 
 			if (lang.picture) {
 			  const $imgContainer = document.createElement("div");
-			  // le asignamos clases de estilo al recurso
 			  $imgContainer.classList.add("image-resource");
-			  // la imagen permanece oculata por defecto
 			  $imgContainer.classList.add("hide");
-			  // preparamos la imagen
 			  $imgContainer.innerHTML = `<img src="${lang.picture}"/>`;
-			  // anadimos la imagen a la nformacion
 			  $langInfo.appendChild($imgContainer);
 			}
 
-			// anadimos la info del lenguaje a la lista de lenguajes...
 			$listSection.appendChild($langInfo);
 		  });
-		  // se agrega la lista al texto...
 		  $question.appendChild($listSection);
 		}
-
-		// le anadimos el observador
 		textObserver.observe($question);
 		$definitions.appendChild($question);
-	  })
+	  });
 	  $("main").appendChild($definitions);
-	})
+	});
 	callback();
-  })
+  });
+};
+
+export const loadFinalConclusion = async callback => {
+  fetch("https://raw.githubusercontent.com/SaulNeri12/sadm/main/conclusion.json").
+	then(data => {
+	  data.json().then(text => {
+		const $div = document.createElement("div");
+		$div.classList.add("conclusion");
+		$div.classList.add("animated");
+		textObserver.observe($div);
+
+		text.conclusion.paragraphs.forEach(paragraph => {
+		  const $p = document.createElement("p");
+		  $p.textContent = `${paragraph.text}`;
+		  $div.appendChild($p);
+		});
+
+		const $h4 = document.createElement("h4");
+		$h4.textContent = "Fuentes de información";
+		$div.appendChild($h4);
+
+		const $sourcesSection = document.createElement("section");
+		const $ul = document.createElement("ul");
+
+		text.sources.forEach(source => {
+		  const $li = document.createElement("li");
+		  
+		  $li.innerHTML = `(${source.year}). ${source.title}. ${source.author}. Disponible en: ${source.editorial.page}. <a href="${source.editorial.link}">${source.editorial.link}</b>. `;
+		  
+		  if (source.date) $li.innerHTML += `${source.date}.`;
+
+		  $ul.appendChild($li);
+		});
+
+		$sourcesSection.appendChild($ul);
+		$div.appendChild($sourcesSection);
+		$("main").appendChild($div);
+
+		callback();
+	  });
+	});
 };
 
 export const loadMenuContent = async () => {
@@ -248,4 +284,3 @@ export const loadMenuContent = async () => {
 	  });
 	});
 };
-

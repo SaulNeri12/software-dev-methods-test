@@ -88,10 +88,6 @@ main {
   justify-content: space-between;
 }
 
-#software-methods {
-  padding: 50px 0;
-}
-
 .question-title {
   margin: 20px 10px;
 }
@@ -213,6 +209,7 @@ main {
 .image-resource img {
   width: 100%;
   height: 300px;
+  margin-bottom: 30px;
 }
 
 .content-menu {
@@ -278,6 +275,33 @@ main {
 
 #menu-btn:hover {
   background-color: var(--software-blue);
+}
+
+.conclusion {
+  margin: 30vh 0;
+  width: 100%;
+}
+
+.conclusion ul {
+  font-size: small;
+  color: #777777;
+  font-style: italic;
+  text-align: justify;
+  padding: 0;
+  margin: 10px;
+}
+
+.conclusion a {
+  word-break: break-all;
+}
+
+.hover-animation {
+  transition: background-color 0.2s;
+  padding: 10px 0px;
+}
+
+.hover-animation:hover {
+  background-color: #eeeeee;
 }
 
 @media only screen and (min-device-width: 768px) {

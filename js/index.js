@@ -1,11 +1,18 @@
-import { loadMethodsInfo, loadMajorInfo, loadMenuContent } from "./content.loader.js";
+import { 
+  loadMethodsInfo, 
+  loadMajorInfo, 
+  loadMenuContent,
+  loadFinalConclusion
+} from "./content.loader.js";
 
 const $ = id => document.querySelector(id);
 
 document.addEventListener("DOMContentLoaded", () => {
   loadMajorInfo(() => {
 	loadMethodsInfo(() => {
-	  loadMenuContent();
+	  loadFinalConclusion(() => {
+		loadMenuContent();
+	  });
 	});
   })
 });
