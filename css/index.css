@@ -295,6 +295,33 @@ main {
   word-break: break-all;
 }
 
+.contact {
+  width: 100%;
+  margin: 20vh 0;
+}
+
+.contact .content {
+  display: flex;
+  flex-flow: column nowrap;
+  font-size: medium;
+  font-style: italic;
+  text-align: justify;
+  color: #666666;
+}
+
+.content .element {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: baseline;
+  padding: 10px 0;
+}
+
+.content .element span {
+  margin-left: 7px;
+  margin-top: 2px;
+  font-size: 18px;
+} 
+
 .hover-animation {
   transition: background-color 0.2s;
   padding: 10px 0px;

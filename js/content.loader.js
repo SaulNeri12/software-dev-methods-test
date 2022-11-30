@@ -238,6 +238,7 @@ export const loadFinalConclusion = async callback => {
 
 		const $h4 = document.createElement("h4");
 		$h4.textContent = "Fuentes de información";
+		$h4.style.marginTop = "70px";
 		$div.appendChild($h4);
 
 		const $sourcesSection = document.createElement("section");
@@ -245,16 +246,29 @@ export const loadFinalConclusion = async callback => {
 
 		text.sources.forEach(source => {
 		  const $li = document.createElement("li");
-		  
 		  $li.innerHTML = `(${source.year}). ${source.title}. ${source.author}. Disponible en: ${source.editorial.page}. <a href="${source.editorial.link}">${source.editorial.link}</b>. `;
-		  
 		  if (source.date) $li.innerHTML += `${source.date}.`;
-
 		  $ul.appendChild($li);
 		});
 
+		const $contactInfo = document.createElement("section");
+		$contactInfo.classList.add("contact");
+		//console.log(text.contact)
+
+		$contactInfo.innerHTML = `<h2>Contacto</h2>`;
+		$contactInfo.innerHTML += `
+		  <div class="content">
+			<div class="element"><img src="/css/icons/user.png"/><span>${text.contact.name}</span></div>
+			<div class="element"><b><span>${text.contact.rol}</b></span></div>
+			<div class="element"><img src="/css/icons/building.png"/><span>${text.contact.place}</span></div>
+			<div class="element"><img src="/css/icons/telephone.png"/><span>${text.contact["phone-number"]}</span></div>
+			<div class="element"><img src="/css/icons/mail.png"/><span><a href="mailto:${text.contact.email}">${text.contact.email}</a></span></div>
+		  </div>
+		`;
+
 		$sourcesSection.appendChild($ul);
 		$div.appendChild($sourcesSection);
+		$div.appendChild($contactInfo);
 		$("main").appendChild($div);
 
 		callback();
