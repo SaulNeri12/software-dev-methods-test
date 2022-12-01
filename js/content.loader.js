@@ -57,7 +57,8 @@ export const loadMethodsInfo = async callback => {
 	const $softwareMethods = document.createElement("div");
 	$softwareMethods.setAttribute("id", "software-methods");
 	
-	$softwareMethods.innerHTML = `<h1 class="pane-title" style="margin: 50vh 0;text-align: center;">Metodologías del desarrollo de Software</h1>`;
+	$softwareMethods.innerHTML = `<h1 class="pane-title animated" style="margin: 50vh 0;text-align: center;">Metodologías del desarrollo de Software</h1>`;
+	textObserver.observe($softwareMethods.querySelector(".pane-title"));
 
 	methods.forEach(m => {
 	  const $method = document.createElement("div");
@@ -73,10 +74,40 @@ export const loadMethodsInfo = async callback => {
 	  $mainPicture.setAttribute("data-src", m.picture);
 	  $method.querySelector(".method-main-picture").appendChild($mainPicture);
 	  imgObserver.observe($method.querySelector(".method-main-picture"));
+
+
+	  // preparamos el video principal
+	  if (m.video) {
+		const $principalVideoSection = document.createElement("section");
+		const $dropDownVideoBtn = document.createElement("h4");
+		$dropDownVideoBtn.textContent = `+ Ver: ${m.video.name}`;
+
+		const $principalVideoContainer = document.createElement("div");
+		const $principalVideoIframe = document.createElement("iframe");
+
+		$principalVideoIframe.classList.add("video-resource");
+		$principalVideoIframe.classList.add("hide");
+		$principalVideoIframe.setAttribute("data-src", m.video.link);
+
+		$dropDownVideoBtn.onclick = function (e) {
+		  const state = this.textContent[0];
+		  // cambia el icono del boton que almacena la informacion de la fase...
+		  this.textContent = (state == "+") ? `- Ver: ${m.video.name}` : `+ Ver: ${m.video.name}`;
+		  // se muestra u oculta la informacion 
+		  $principalVideoIframe.classList.toggle("hide");
+		};
+
+		videoObserver.observe($principalVideoIframe);
+		$principalVideoContainer.appendChild($principalVideoIframe);
+		$principalVideoSection.appendChild($dropDownVideoBtn);
+		$principalVideoSection.appendChild($principalVideoContainer);
+		$method.appendChild($principalVideoSection);
+	  }
+
 	  // creamos la seccion donde se guardan las fases y le damos estilo
 	  const $phasesSection = document.createElement("section");
 	  $phasesSection.classList.add("method-phases");
-	  $phasesSection.innerHTML = "<h3>Fases</h3>";
+	  $phasesSection.innerHTML = `<h2 style="margin-top: 40px;">Fases</h2>`;
 
 	  m.phases.forEach(phase => {
 		const $phaseContainer = document.createElement("div");
@@ -226,7 +257,7 @@ export const loadFinalConclusion = async callback => {
 	then(data => {
 	  data.json().then(text => {
 		const $div = document.createElement("div");
-		$div.classList.add("conclusion");
+		$div.id = "conclusion";
 		$div.classList.add("animated");
 		textObserver.observe($div);
 
@@ -238,6 +269,7 @@ export const loadFinalConclusion = async callback => {
 
 		const $h4 = document.createElement("h4");
 		$h4.textContent = "Fuentes de información";
+		$h4.style.marginTop = "70px";
 		$div.appendChild($h4);
 
 		const $sourcesSection = document.createElement("section");
@@ -245,16 +277,29 @@ export const loadFinalConclusion = async callback => {
 
 		text.sources.forEach(source => {
 		  const $li = document.createElement("li");
-		  
 		  $li.innerHTML = `(${source.year}). ${source.title}. ${source.author}. Disponible en: ${source.editorial.page}. <a href="${source.editorial.link}">${source.editorial.link}</b>. `;
-		  
 		  if (source.date) $li.innerHTML += `${source.date}.`;
-
 		  $ul.appendChild($li);
 		});
 
+		const $contactInfo = document.createElement("section");
+		$contactInfo.id = "contact";
+		//console.log(text.contact)
+
+		$contactInfo.innerHTML = `<h2>Contacto</h2>`;
+		$contactInfo.innerHTML += `
+		  <div class="content">
+			<div class="element"><img src="/css/icons/user.png"/><span>${text.contact.name}</span></div>
+			<div class="element"><b><span>${text.contact.rol}</b></span></div>
+			<div class="element"><img src="/css/icons/building.png"/><span>${text.contact.place}</span></div>
+			<div class="element"><img src="/css/icons/telephone.png"/><span>${text.contact["phone-number"]}</span></div>
+			<div class="element"><img src="/css/icons/mail.png"/><span><a href="mailto:${text.contact.email}">${text.contact.email}</a></span></div>
+		  </div>
+		`;
+
 		$sourcesSection.appendChild($ul);
 		$div.appendChild($sourcesSection);
+		$div.appendChild($contactInfo);
 		$("main").appendChild($div);
 
 		callback();
